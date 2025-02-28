@@ -1,9 +1,9 @@
 
-# Quarkus Recipe Manager
+# Quarkus Blog Manager
 
 ## Projektübersicht
 
-Dies ist eine **Rezeptverwaltungs-API** basierend auf **Quarkus** und **MongoDB** mit Panache. Die Anwendung ermöglicht das **Erstellen, Bearbeiten, Anzeigen und Löschen von Rezepten**, wobei Benutzer Rezepte speichern und verwalten können.
+Dies ist eine **Blog-API** basierend auf **Quarkus** und **MongoDB** mit Panache. Die Anwendung ermöglicht das **Erstellen, Bearbeiten, Anzeigen und Löschen von Blogs**, wobei Benutzer Rezepte speichern und verwalten können.
 
 ## Projektstruktur
 
@@ -13,11 +13,11 @@ blogPost-manager/
 │   ├── main/
 │   │   ├── java/ch/hftm/nosql/workspace/entity/  # Datenbank-Entities
 │   │   │   ├── User.java
-│   │   │   ├── Recipe.java
-│   │   │   ├── Ingredient.java
+│   │   │   ├── BlogPost.java
+│   │   │   ├── Comment.java
 │   │   ├── java/ch/hftm/nosql/workspace/resource/  # REST API Endpunkte
 │   │   │   ├── UserResource.java
-│   │   │   ├── RecipeResource.java
+│   │   │   ├── BlogPostResource.java
 │-- src/main/resources/application.properties  # MongoDB Konfiguration
 │-- pom.xml  # Maven Dependencies
 
@@ -77,7 +77,7 @@ Alle Benutzer abrufen
 
 Neuen Benutzer anlegen
 
-**🔹 Rezept-Endpoints (`/recipes`)**
+**🔹 Blog-Endpoints (`/blogs`)**
 
 Methode
 
@@ -87,31 +87,31 @@ Beschreibung
 
 `GET`
 
-`/recipes`
+`/blogs`
 
 Alle Rezepte abrufen
 
 `POST`
 
-`/recipes`
+`/blogs`
 
 Neues Rezept erstellen
 
 `GET`
 
-`/recipes/{id}`
+`/blogs/{id}`
 
 Einzelnes Rezept abrufen
 
 `PUT`
 
-`/recipes/{id}`
+`/blogs/{id}`
 
 Rezept aktualisieren
 
 `DELETE`
 
-`/recipes/{id}`
+`/blogs/{id}`
 
 Rezept löschen
 
@@ -131,52 +131,46 @@ curl -X POST http://localhost:8080/users \
 ### **➕ Rezept erstellen**
 
 ```sh
-curl -X POST http://localhost:8080/recipes \
+curl -X POST http://localhost:8080/blogs \
      -H "Content-Type: application/json" \
      -d '{
-        "title": "Pasta Carbonara",
-        "ingredients": [
-            {"name": "Spaghetti", "amount": "200g"},
-            {"name": "Eier", "amount": "2 Stück"},
-            {"name": "Parmesan", "amount": "50g"}
-        ],
-        "instructions": "Alles vermischen und genießen!",
-        "authorId": "<USER_ID>"
-     }'
+           "title": "Mein erster Blogpost",
+           "content": "Dies ist der Inhalt meines Blogposts.",
+           "createdAt": "2025-02-28T12:00:00",
+           "comments": []
+         }'
+
 
 ```
 
 **Wichtig:** Ersetze `<USER_ID>` mit einer gültigen Benutzer-ID.
 
-### ** Alle Rezepte abrufen**
+### ** Alle Blogs abrufen**
 
 ```sh
 curl http://localhost:8080/recipes
 
 ```
 
-### ** Rezept aktualisieren**
+### ** Blogs aktualisieren**
 
 ```sh
-curl -X PUT http://localhost:8080/recipes/<RECIPE_ID> \
+curl -X PUT http://localhost:8080/posts \
      -H "Content-Type: application/json" \
      -d '{
-        "title": "Pasta Carbonara (Updated)",
-        "ingredients": [
-            {"name": "Spaghetti", "amount": "250g"},
-            {"name": "Eier", "amount": "3 Stück"},
-            {"name": "Parmesan", "amount": "60g"},
-            {"name": "Speck", "amount": "100g"}
-        ],
-        "instructions": "Neues Rezept mit mehr Zutaten."
-     }'
+           "title": "Mein erster Blogpostasdf",
+           "content": "Dies ist der Inhalt meinesneu nue Blogposts.",
+           "createdAt": "2025-02-28T12:00:00",
+           "comments": []
+         }'
+
 
 ```
 
 ### **🗑 Rezept löschen**
 
 ```sh
-curl -X DELETE http://localhost:8080/recipes/<RECIPE_ID>
+curl -X DELETE http://localhost:8080/blogs/<BLOGS_ID>
 
 ```
 
@@ -207,7 +201,7 @@ mongosh "mongodb+srv://admin:<DEIN_PASSWORD>@cluster0.u8hde.mongodb.net/"
 
 ```sh
 show dbs                 # Zeigt alle Datenbanken
-use recipeDB             # Wechselt zur Datenbank
+use blogsdb             # Wechselt zur Datenbank
 show collections         # Zeigt alle Collections
 
 ```
@@ -216,6 +210,6 @@ show collections         # Zeigt alle Collections
 
 ## 🎯 Fazit
 
-🔹 **Quarkus + MongoDB mit Panache** für einfache Abfragen 🔹 **REST API mit CRUD-Funktionalität** für Benutzer & Rezepte 🔹 **Automatische MongoDB-Collection-Erstellung** durch Panache
+🔹 **Quarkus + MongoDB mit Panache** für einfache Abfragen 🔹 **REST API mit CRUD-Funktionalität** für Benutzer & Blogs 🔹 **Automatische MongoDB-Collection-Erstellung** durch Panache
 
 <Table  {field}  />
