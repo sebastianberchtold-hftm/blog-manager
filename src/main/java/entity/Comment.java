@@ -1,5 +1,6 @@
 package entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,4 +14,5 @@ public class Comment {
     private String author;
     private String text;
     private LocalDateTime createdAt;
+
 }
